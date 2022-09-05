@@ -1,14 +1,25 @@
-const verifyToken = async (req, next, res) => {
-  // decode jwt token from request headers
-  const token = req.get("authorization").split(" ")[1];
-  if (token) {
-    // verify if token is not expired
+const Jwt = require("jsonwebtoken");
 
-    // if token is valied ,pass
-    next();
-  } else {
-    return res.status(400).json({ error: true, message: "invalid token" });
-  }
+const verifyToken = async (req, res, next) => {
+  // decode jwt token from request headers
+  if (!req.get("authorization"))
+    return res.status(401).json({ error: true, message: "Access Denied" });
+
+  const token = req.get("authorization").split(" ")[1];
+  if (!token)
+    return res.status(401).json({ error: true, message: "Access Denied" });
+
   try {
-  } catch (error) {}
+    // verify if token is not expired
+    const secret = process.env.JWT_Secret;
+    const isTokenValid = Jwt.verify(token, secret);
+
+    req.body.token = isTokenValid;
+  } catch (error) {
+    return res.status(401).json({ error: true, message: "Invalid Token" });
+  }
+
+  return next();
 };
+
+module.exports = verifyToken;

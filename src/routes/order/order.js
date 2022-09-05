@@ -1,9 +1,8 @@
-import { Router } from "express";
+const express = require("express");
+const router = express.Router();
 
-const router = Router();
-
-import OrderController from "../../controllers/order/OrderController";
+const { OrderController } = require("../../controllers/order/OrderController");
 
 router.post("/create/id", OrderController.createOrder);
 
-export default router;
+module.exports = router;

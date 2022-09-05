@@ -12,4 +12,4 @@ const createOrder = async (req, res) => {
   // order total
 };
 
-export default OrderController = { createOrder };
+module.exports.OrderController = { createOrder };

@@ -21,4 +21,4 @@ const destroy = async (req, res) => {
   const { id } = req.params;
 };
 
-export const DistributorController = { index, create, show, update, destroy };
+module.exports.DistributorController = { index, create, show, update, destroy };
