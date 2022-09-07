@@ -1,23 +1,23 @@
-const { json } = require("express");
 const express = require("express");
 const { sequelize } = require("../database/models");
 require("dotenv").config();
 
 const app = express();
 
-app.use(json());
+app.use(express.json());
+app.use(express.static("public"));
 
 const AuthRouter = require("./routes/auth/auth");
 const DistributorRouter = require("./routes/distributor/distributor");
 const FarmerRouter = require("./routes/farmer/farmer");
 const OrderRouter = require("./routes/order/order");
+const AdRouter = require("./routes/ad/ad");
 
 const verifyToken = require("./middleware/VerifyToken");
 
 app.get("/", verifyToken, async (req, res) => {
   res.json({ success: true, data: req.body.token });
 });
-
 //auth route
 app.use("/auth", AuthRouter);
 
@@ -25,10 +25,13 @@ app.use("/auth", AuthRouter);
 app.use("/distributors", DistributorRouter);
 
 //farmer route
-app.use("/famers", FarmerRouter);
+app.use("/farmers", FarmerRouter);
 
 //orders route
 app.use("/orders", OrderRouter);
+
+//ad routes
+app.use("/ad", AdRouter);
 
 app.listen(3001, async () => {
   try {

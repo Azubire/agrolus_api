@@ -1,12 +1,13 @@
 const express = require("express");
 const path = require("path");
 const multer = require("multer");
-
 const router = express.Router();
+
+const { AdController } = require("../../controllers/ad/AdController");
 
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
-    cb(null, "public/images/distributors");
+    cb(null, "public/images/ads");
   },
   filename: function (req, file, cb) {
     const uniqueSuffix = Date.now() + "-" + Math.round(Math.random() * 1e9);
@@ -18,18 +19,6 @@ const storage = multer.diskStorage({
 });
 const upload = multer({ storage: storage });
 
-const {
-  DistributorController,
-} = require("../../controllers/distributor/DistributorController");
-
-router.get("/", DistributorController.index);
-router.get("/:id", DistributorController.show);
-router.post(
-  "/register",
-  upload.single("distributor"),
-  DistributorController.create
-);
-router.put("/update/:id", DistributorController.update);
-router.delete("/delete/:id");
+router.post("/create", upload.single("adImage"), AdController.createAd);
 
 module.exports = router;

@@ -28,7 +28,7 @@ const signin = async (req, res) => {
       error: false,
       user: {
         userToken: token,
-        id: user.id,
+        userId: user.id,
         username: user.fullname,
         email: user.email,
         accountBalance: user.accountBalance,
