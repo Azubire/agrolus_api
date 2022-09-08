@@ -1,5 +1,7 @@
-const { Distributor } = require("../../../database/models");
+const { Distributor, User } = require("../../../database/models");
 
+// Distributor.sync({ alter: true });
+// User.sync({ alter: true });
 const index = async (req, res) => {
   //return all distributors
   try {

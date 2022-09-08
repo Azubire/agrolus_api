@@ -9,7 +9,7 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
-      // this.belongsTo(models.User);
+      this.belongsTo(models.User, { foreignKey: "userId" });
     }
   }
   Distributor.init(
@@ -23,7 +23,6 @@ module.exports = (sequelize, DataTypes) => {
       transactions: DataTypes.INTEGER,
       location: DataTypes.STRING,
       ratings: DataTypes.INTEGER,
-      userId: DataTypes.INTEGER,
     },
     {
       sequelize,

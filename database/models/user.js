@@ -9,7 +9,8 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
-      // this.hasOne(models.Distributor);
+      this.hasOne(models.Distributor, { foreignKey: "userId" });
+      this.hasMany(models.Order, { foreignKey: "userId" });
     }
   }
   User.init(
@@ -19,7 +20,7 @@ module.exports = (sequelize, DataTypes) => {
       password: DataTypes.STRING,
       contact: DataTypes.STRING,
       location: DataTypes.STRING,
-      img: DataTypes.STRING,
+      img: { type: DataTypes.STRING, defaultValue: "default_profile.jpg" },
       accountBalance: DataTypes.FLOAT,
     },
     {

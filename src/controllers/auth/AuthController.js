@@ -1,12 +1,23 @@
 require("dotenv").config();
 const Jwt = require("jsonwebtoken");
 const bcrypt = require("bcrypt");
-const { User } = require("../../../database/models");
+const {
+  User,
+  Distributor,
+  Order,
+  Sequelize,
+} = require("../../../database/models");
 
 //sign in
 const signin = async (req, res) => {
   //check if user exist
-  const user = await User.findOne({ where: { email: req.body.email } });
+  const user = await User.findOne({
+    where: { email: req.body.email },
+    include: {
+      model: Distributor,
+      attributes: { exclude: ["updatedAt", "userId"] },
+    },
+  });
 
   if (!user) {
     return res.json({ error: true, message: "email incorrect" });
@@ -17,6 +28,12 @@ const signin = async (req, res) => {
   if (!isPasswordValid) {
     return res.json({ error: true, message: "password incorrect" });
   }
+
+  const orderCount = await user.getOrders({
+    attributes: {
+      include: [[Sequelize.fn("COUNT", Sequelize.col("id")), "id"]],
+    },
+  });
 
   const email = user.email;
   const secret = process.env.JWT_Secret;
@@ -31,12 +48,50 @@ const signin = async (req, res) => {
         userId: user.id,
         username: user.fullname,
         email: user.email,
+        img: user.img,
         accountBalance: user.accountBalance,
+        totalSales: orderCount[0].id,
       },
+      isDistibutor: user.Distributor,
     };
     res.status(200).json(data);
   } catch (error) {
     console.log(error);
+    res.status(400).json({ error: true, message: "something went wrong" });
+  }
+};
+
+const verifyToken = async (req, res) => {
+  try {
+    const user = await User.findOne({
+      where: { email: req.body.token.decodedToken.email },
+      include: {
+        model: Distributor,
+        attributes: { exclude: ["updatedAt", "userId"] },
+      },
+    });
+    const orderCount = await user.getOrders({
+      attributes: {
+        include: [[Sequelize.fn("COUNT", Sequelize.col("id")), "id"]],
+      },
+    });
+
+    const data = {
+      error: false,
+      user: {
+        userToken: req.body.token.token,
+        userId: user.id,
+        username: user.fullname,
+        email: user.email,
+        img: user.img,
+        accountBalance: user.accountBalance,
+        totalSales: orderCount[0].id,
+      },
+      isDistributor: user.Distributor,
+    };
+    res.status(200).json(data);
+  } catch (error) {
+    // console.log(error);
     res.status(400).json({ error: true, message: "something went wrong" });
   }
 };
@@ -75,8 +130,23 @@ const signup = async (req, res) => {
   }
 };
 
+const update = async (req, res) => {
+  const { id } = req.params;
+  // console.log(id);
+  try {
+    const user = await User.findOne({ where: { id: id } });
+    const updatedUser = await user.update({ img: req.file.filename });
+    user;
+    // console.log();
+    res.json({ error: false, img: updatedUser.img });
+  } catch (error) {
+    // console.log("error", error);
+    res.json({ error: true, img: "" });
+  }
+};
+
 const resetPassword = async (req, res) => {};
 
 const verifyEmail = async (req, res) => {};
 
-module.exports.AuthController = { signin, signup };
+module.exports.AuthController = { signin, signup, verifyToken, update };
