@@ -52,7 +52,7 @@ const signin = async (req, res) => {
         accountBalance: user.accountBalance,
         totalSales: orderCount[0].id,
       },
-      isDistibutor: user.Distributor,
+      isDistributor: user.Distributor,
     };
     res.status(200).json(data);
   } catch (error) {

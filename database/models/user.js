@@ -11,6 +11,7 @@ module.exports = (sequelize, DataTypes) => {
       // define association here
       this.hasOne(models.Distributor, { foreignKey: "userId" });
       this.hasMany(models.Order, { foreignKey: "userId" });
+      this.hasMany(models.Ad, { foreignKey: "userId" });
     }
   }
   User.init(
