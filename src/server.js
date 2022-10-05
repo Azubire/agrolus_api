@@ -13,6 +13,9 @@ const FarmerRouter = require("./routes/farmer/farmer");
 const OrderRouter = require("./routes/order/order");
 const AdRouter = require("./routes/ad/ad");
 
+//admin routers imports
+const AdminRouter = require("./routes/admin");
+
 const verifyToken = require("./middleware/VerifyToken");
 
 app.get("/", verifyToken, async (req, res) => {
@@ -32,6 +35,10 @@ app.use("/orders", OrderRouter);
 
 //ad routes
 app.use("/ad", AdRouter);
+
+//admin routes
+
+app.use("/admin", AdminRouter);
 
 app.listen(3001, async () => {
   try {
