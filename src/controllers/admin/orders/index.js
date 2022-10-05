@@ -20,4 +20,17 @@ const getOrders = async (req, res) => {
   }
 };
 
-module.exports = { getOrders };
+const destroyOrder = async (req, res) => {
+  const { id } = req.params;
+  try {
+    const data = await Order.findOne({ where: { id } });
+
+    await data.destroy();
+
+    res.json({ error: false });
+  } catch (error) {
+    res.json({ error: true });
+  }
+};
+
+module.exports = { getOrders, destroyOrder };

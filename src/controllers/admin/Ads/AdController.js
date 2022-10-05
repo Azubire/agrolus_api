@@ -24,4 +24,17 @@ const getAds = async (req, res) => {
   }
 };
 
-module.exports = { getAds };
+const destroy = async (req, res) => {
+  const { id } = req.params;
+  try {
+    const data = await Ad.findOne({ where: { id: id } });
+
+    await data.destroy();
+
+    res.json({ error: false });
+  } catch (error) {
+    res.json({ error: true });
+  }
+};
+
+module.exports = { getAds, destroy };

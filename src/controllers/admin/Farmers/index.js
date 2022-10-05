@@ -12,4 +12,15 @@ const getFarmers = async (req, res) => {
   }
 };
 
-module.exports = { getFarmers };
+const destroyFarmer = async (req, res) => {
+  const { id } = req.params;
+  try {
+    const data = await User.findOne({ where: { id } });
+    await data.detroy();
+    res.json({ error: false });
+  } catch (error) {
+    res.json({ error: true });
+  }
+};
+
+module.exports = { getFarmers, destroyFarmer };

@@ -2,16 +2,26 @@ const express = require("express");
 
 const router = express.Router();
 
-const { getAds } = require("../../controllers/admin/Ads/AdController");
-const { getDistributors } = require("../../controllers/admin/distributors");
-const { getFarmers } = require("../../controllers/admin/Farmers");
-const { getOrders } = require("../../controllers/admin/orders");
+const { getAds, destroy } = require("../../controllers/admin/Ads/AdController");
+const {
+  getDistributors,
+  destroyDistributor,
+} = require("../../controllers/admin/distributors");
+const {
+  getFarmers,
+  destroyFarmer,
+} = require("../../controllers/admin/Farmers");
+const { getOrders, destroyOrder } = require("../../controllers/admin/orders");
 const { getMetrics } = require("../../controllers/admin");
 
 router.get("/ads", getAds);
+router.delete("/ad/delete/:id", destroy);
 router.get("/distributors", getDistributors);
+router.delete("distributor/delete/:id", destroyDistributor);
 router.get("/farmers", getFarmers);
+router.delete("farmer/delete/:id", destroyFarmer);
 router.get("/orders", getOrders);
+router.delete("/order/delete/:id", destroyOrder);
 router.get("/metrics", getMetrics);
 
 module.exports = router;

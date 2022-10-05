@@ -1,10 +1,13 @@
-const express = require("express")
+const express = require("express");
 
-const router = express.Router()
+const router = express.Router();
 
-const {index} = require("../../../controllers/admin/Ads/AdController")
+const {
+  getAds,
+  destroy,
+} = require("../../../controllers/admin/Ads/AdController");
 
-router.get("/ads",index)
+router.get("/ads", getAds);
+router.delete("/ad/:id", destroy);
 
-
-module.exports = router
+module.exports = router;

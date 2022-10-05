@@ -13,5 +13,15 @@ const getDistributors = async (req, res) => {
     res.json({ error: true, message: "failed", data: [] });
   }
 };
+const destroyDistributor = async (req, res) => {
+  const { id } = req.params;
+  try {
+    const data = await Distributor.findOne({ where: { id } });
+    await data.destroy();
 
-module.exports = { getDistributors };
+    res.json({ error: false });
+  } catch (error) {
+    res.json({ error: true });
+  }
+};
+module.exports = { getDistributors, destroyDistributor };
