@@ -15,6 +15,7 @@ const { getOrders, destroyOrder } = require("../../controllers/admin/orders");
 const { getMetrics } = require("../../controllers/admin");
 const {
   updateDeposit,
+  getAllTransactions,
 } = require("../../controllers/deposits/DepositController");
 
 router.get("/ads", getAds);
@@ -26,6 +27,7 @@ router.delete("farmer/delete/:id", destroyFarmer);
 router.get("/orders", getOrders);
 router.delete("/order/delete/:id", destroyOrder);
 router.get("/metrics", getMetrics);
+router.get("/transactions", getAllTransactions);
 router.put("/deposit/update/:id", updateDeposit);
 
 module.exports = router;

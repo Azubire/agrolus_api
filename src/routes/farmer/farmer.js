@@ -1,5 +1,8 @@
 const express = require("express");
-const { deposit } = require("../../controllers/deposits/DepositController");
+const {
+  deposit,
+  getUserDeposits,
+} = require("../../controllers/deposits/DepositController");
 
 const router = express.Router();
 const {
@@ -8,6 +11,7 @@ const {
 
 router.get("/", FarmerController.index);
 router.delete("farmer/delete/:id");
+router.get("/farmer/deposits/:id", getUserDeposits);
 router.post("/farmer/deposit/:id", deposit);
 
 module.exports = router;
