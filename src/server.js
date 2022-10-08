@@ -43,14 +43,12 @@ app.use("/ad", AdRouter);
 
 app.use("/admin", AdminRouter);
 
-app.listen(3001, async () => {
+app.listen(process.env.port || 3001, async () => {
   try {
     await sequelize.authenticate();
     console.log("Connection has been established successfully.");
   } catch (error) {
     console.error("Unable to connect to the database: ", error);
   }
-  console.log("sever is running on port 3001");
+  console.log(`sever is running on port 3001 ${process.env.port || 3001}`);
 });
-
-// export default app;
