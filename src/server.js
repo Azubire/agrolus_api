@@ -50,5 +50,5 @@ app.listen(process.env.PORT || 3001, async () => {
   } catch (error) {
     console.error("Unable to connect to the database ", error);
   }
-  console.log(`sever is running on port 3001 ${process.env.port || 3001}`);
+  console.log(`sever is running on port 3001 ${process.env.PORT}`);
 });

@@ -9,6 +9,7 @@ module.exports = {
     password: "P8tIf3iEVY",
     database: "sql8525211",
     host: "sql8.freemysqlhosting.net",
+    port: 3306,
     dialect: "mysql",
   },
   test: {
