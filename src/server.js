@@ -8,7 +8,11 @@ const app = express();
 
 app.use(express.json());
 app.use(express.static("public"));
-app.use(cors({ origin: "http://localhost:3000" }));
+app.use(
+  cors({
+    origin: ["http://localhost:3000", "https://agroplus-dashboard.vercel.app"],
+  })
+);
 
 const AuthRouter = require("./routes/auth/auth");
 const DistributorRouter = require("./routes/distributor/distributor");
