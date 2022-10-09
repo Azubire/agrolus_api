@@ -20,10 +20,11 @@ module.exports = {
     dialect: "mysql",
   },
   production: {
-    username: "epiz_32753856",
-    password: "YKpmruUt2tW",
-    database: "epiz_32753856_agroplus",
-    host: "sql203.epizy.com",
+    username: "sql8525211",
+    password: "P8tIf3iEVY",
+    database: "sql8525211",
+    host: "sql8.freemysqlhosting.net",
+    port: 3306,
     dialect: "mysql",
   },
 };
