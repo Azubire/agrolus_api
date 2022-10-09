@@ -39,8 +39,10 @@ const getAllTransactions = async (req, res) => {
     });
 
     res.send({ error: false, data: data });
+    console.log(data);
   } catch (error) {
-    res.send({ error: treu, data: [] });
+    console.log(error);
+    res.send({ error: true, data: [] });
   }
 };
 
