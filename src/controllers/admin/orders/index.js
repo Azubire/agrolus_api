@@ -1,4 +1,9 @@
-const { Order, User, Distributor } = require("../../../../database/models");
+const {
+  Order,
+  User,
+  Distributor,
+  Transaction,
+} = require("../../../../database/models");
 
 const getOrders = async (req, res) => {
   try {
@@ -23,12 +28,13 @@ const getOrders = async (req, res) => {
 const destroyOrder = async (req, res) => {
   const { id } = req.params;
   try {
-    const data = await Order.findOne({ where: { id } });
+    const data = await Transaction.findOne({ where: { id } });
 
     await data.destroy();
 
     res.json({ error: false });
   } catch (error) {
+    console.log(error);
     res.json({ error: true });
   }
 };
