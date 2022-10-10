@@ -21,9 +21,9 @@ const {
 router.get("/ads", getAds);
 router.delete("/ad/delete/:id", destroy);
 router.get("/distributors", getDistributors);
-router.delete("distributor/delete/:id", destroyDistributor);
+router.delete("/distributor/delete/:id", destroyDistributor);
 router.get("/farmers", getFarmers);
-router.delete("farmer/delete/:id", destroyFarmer);
+router.delete("/farmer/delete/:id", destroyFarmer);
 router.get("/orders", getOrders);
 router.delete("/order/delete/:id", destroyOrder);
 router.get("/metrics", getMetrics);
