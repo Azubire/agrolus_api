@@ -16,7 +16,7 @@ const destroyFarmer = async (req, res) => {
   const { id } = req.params;
   try {
     const data = await User.findOne({ where: { id } });
-    await data.detroy();
+    await data.destroy();
     res.json({ error: false });
   } catch (error) {
     res.json({ error: true });
