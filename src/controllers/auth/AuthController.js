@@ -145,8 +145,27 @@ const update = async (req, res) => {
   }
 };
 
+const getUserBalance = async (req, res) => {
+  const { id } = req.params;
+  try {
+    const user = await User.findOne({
+      where: { id },
+      attributes: ["accountBalance"],
+    });
+    res.send({ status: "success", accountBalance: user.accountBalance });
+  } catch (error) {
+    res.send({ status: "failed" });
+  }
+};
+
 const resetPassword = async (req, res) => {};
 
 const verifyEmail = async (req, res) => {};
 
-module.exports.AuthController = { signin, signup, verifyToken, update };
+module.exports.AuthController = {
+  signin,
+  signup,
+  verifyToken,
+  update,
+  getUserBalance,
+};

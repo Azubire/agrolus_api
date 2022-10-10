@@ -29,7 +29,7 @@ const createOrder = async (req, res) => {
     paymentType: req.body.paymentType,
     viewed: 0,
     deliveryStatus: "pending",
-    orderCode: "ORD" + Date.now() + "-" + Math.round(Math.random() * 1e9),
+    orderCode: "ORD" + "-" + Math.round(Math.random() * 1e9),
     userId: id,
   });
 
@@ -84,6 +84,7 @@ const getOrders = async (req, res) => {
           ],
         },
       },
+      order: [["id", "Desc"]],
       attributes: { exclude: ["updatedAt"] },
     });
     res.json({ error: false, message: "success", data: orders });

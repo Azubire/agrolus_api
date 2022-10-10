@@ -25,5 +25,6 @@ router.post("/signin", AuthController.signin);
 router.post("/signup", AuthController.signup);
 router.put("/update/:id", upload.single("profilePhoto"), AuthController.update);
 router.post("/verifytoken", verifyToken, AuthController.verifyToken);
+router.get("/user/balance/:id", AuthController.getUserBalance);
 
 module.exports = router;
